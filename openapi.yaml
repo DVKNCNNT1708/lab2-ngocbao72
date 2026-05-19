@@ -325,7 +325,6 @@ components:
 
     CreateAlertRequest:
       type: object
-      additionalProperties: false
       required: [sourceService, alertType, severity, message]
       properties:
         sourceService:
@@ -355,10 +354,10 @@ components:
           example: 0196fb3d-4ad7-7d1e-9f49-5d5148d2babc
 
     Alert:
+      unevaluatedProperties: false
       allOf:
         - $ref: '#/components/schemas/CreateAlertRequest'
         - type: object
-          additionalProperties: false
           required: [id, status, createdAt, resolvedAt]
           properties:
             id:
@@ -538,7 +537,7 @@ components:
           type: [string, 'null']
           format: uri
           description: URI của request gây lỗi.
-          example: /alerts
+          example: https://campus.local/alerts
         errors:
           type: array
           minItems: 0
@@ -576,7 +575,7 @@ components:
             title: Dữ liệu không hợp lệ
             status: 400
             detail: Payload không đúng JSON Schema
-            instance: /alerts
+            instance: https://campus.local/alerts
             errors:
               - field: alertType
                 code: ENUM_MISMATCH
@@ -593,7 +592,7 @@ components:
             title: Chưa xác thực
             status: 401
             detail: Thiếu Bearer token
-            instance: /alerts/recent
+            instance: https://campus.local/alerts/recent
             errors: []
 
     Forbidden:
